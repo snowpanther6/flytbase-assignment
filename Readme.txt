@@ -1,0 +1,1 @@
+Double tap on index.html file it will directly open in browser

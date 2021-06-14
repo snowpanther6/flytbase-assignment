@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Mover</title>
+    <style>
+        .newBox{
+            background-color: green;
+            color: white;
+            height: 40px;
+            width: 150px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="newBox" onclick="createbtn()">Create new Box</button>
+    <button class="newBox" id="tg" onclick="toogle()">Toogle ON</button>
+    <div id="new"></div>
+
+    <script>
+
+        let idx = 1;
+        let arr = []
+        let selected = false
+        let togle = true
+        let moveBy = 10;
+
+        window.addEventListener('keydown',(e)=>{
+            let selectedElement = document.getElementById(selected)
+                if(togle){
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        selectedElement.style.left = parseInt(selectedElement.style.left) - moveBy + 'px';
+                        break;
+                    case 'ArrowRight':
+                        selectedElement.style.left = parseInt(selectedElement.style.left) + moveBy + 'px';
+                        break;
+                    case 'ArrowUp':
+                        selectedElement.style.top = parseInt(selectedElement.style.top) - moveBy + 'px';
+                        break;
+                    case 'ArrowDown':
+                        selectedElement.style.top = parseInt(selectedElement.style.top) + moveBy + 'px';
+                        break;
+                    case 'a':
+                        selectedElement.style.left = parseInt(selectedElement.style.left) - moveBy + 'px';
+                        break;
+                    case 'd':
+                        selectedElement.style.left = parseInt(selectedElement.style.left) + moveBy + 'px';
+                        break;
+                    case 'w':
+                        selectedElement.style.top = parseInt(selectedElement.style.top) - moveBy + 'px';
+                        break;
+                    case 's':
+                        selectedElement.style.top = parseInt(selectedElement.style.top) + moveBy + 'px';
+                        break;
+                    
+                    case 'Delete':
+                        selectedElement.remove();
+                        break;
+                }
+            }
+            
+        })
+
+        function createbtn(){
+            let tag = document.createElement("div");
+            
+            tag.style.height = "100px"
+            tag.style.width = "100px"
+            tag.style.backgroundColor = "red"
+            tag.style.fontSize = "30px"
+            tag.style.position = "absolute"
+            tag.style.left = "100px"
+            tag.style.top = "100px"
+            tag.id = idx
+            tag.style.zIndex = idx
+            idx++;
+            tag.innerHTML = tag.id
+            arr.push(tag)
+            tag.addEventListener('click',()=>{
+                    selected = tag.id
+                    for(let i=0;i<arr.length;i++){
+                        if(arr[i].id == selected){
+                            arr[i].style.border = "5px solid black"
+                        }
+                        else{
+                            arr[i].style.border = "none"
+                        }
+                    }
+            })
+            document.getElementById("new").appendChild(tag);
+        }
+
+        function toogle(){
+            togle = !togle
+            document.getElementById('tg').innerText = togle?'Toogle ON':'Toogle OFF'
+        }
+
+    </script>
+</body>
+</html>
